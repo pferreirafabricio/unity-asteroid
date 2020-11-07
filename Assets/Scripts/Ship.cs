@@ -1,26 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
-    private int _speed;
+    private int _speed = 10;
+
+    private float _maxPositionX = 5.6f;
+    private float _minPositionX = -5.6f;
+
+    private float _maxPositionY = 4.5f;
+    private float _minPositionY = -4.5f;
 
     public GameObject shot;
+    public Text uiLifeText;
+    public int quantityLifes;
 
     void Start()
     {
-        this._speed = 10;
+        this.quantityLifes = 5;
+        updateTextLifes();
     }
 
     void Update()
     {
-        this.movimentX();
-        this.movimentY();
+        movimentX();
+        movimentY();
+        limitHorizontalMoviment();
+        limitVerticalMoviment();
 
         if (Input.GetKeyDown("space"))
         {
             this.instantiateShot();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "asteroid")
+        {
+            quantityLifes--;
+            updateTextLifes();
+
+            if (quantityLifes == 0)
+                Destroy(this.gameObject);
         }
     }
 
@@ -39,5 +63,28 @@ public class Ship : MonoBehaviour
     private void instantiateShot()
     {
         Instantiate(shot, transform.position, Quaternion.identity);
+    }
+
+    private void limitHorizontalMoviment()
+    {
+        if (transform.position.x <= _minPositionX || transform.position.x >= _maxPositionX)
+        {
+            float positionX = Mathf.Clamp(transform.position.x, _minPositionX, _maxPositionX);
+            transform.position = new Vector3(positionX, transform.position.y, transform.position.z);
+        }
+    }
+
+    private void limitVerticalMoviment()
+    {
+        if (transform.position.y <= _minPositionY || transform.position.y >= _maxPositionY)
+        {
+            float positionY = Mathf.Clamp(transform.position.y, _minPositionY, _maxPositionY);
+            transform.position = new Vector3(transform.position.x, positionY, transform.position.z);
+        }
+    }
+
+    private void updateTextLifes()
+    {
+        uiLifeText.text = "Vidas: " + quantityLifes;
     }
 }
