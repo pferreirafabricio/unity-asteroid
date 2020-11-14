@@ -24,6 +24,7 @@ public class Asteroid : MonoBehaviour
         {
             _pontuationController.score++;
             Destroy(this.gameObject);
+            Destroy(collision.gameObject);
         }
     }
 

@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shot: {fileID: 785819262299774158, guid: e3becffa2e7205242a2834611f350414, type: 3}
-  uiTextLife: {fileID: 0}
+  uiLifeText: {fileID: 0}
   quantityLifes: 0
+  audioClip: {fileID: 8300000, guid: a7c5e3fd6399fff428e8ac9ef2dc4873, type: 3}
 --- !u!50 &1573285818
 Rigidbody2D:
   serializedVersion: 4

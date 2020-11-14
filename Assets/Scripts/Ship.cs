@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
-    private int _speed = 10;
+    private int _speed = 8;
 
     private float _maxPositionX = 5.6f;
     private float _minPositionX = -5.6f;
@@ -16,6 +17,7 @@ public class Ship : MonoBehaviour
     public GameObject shot;
     public Text uiLifeText;
     public int quantityLifes;
+    public AudioClip audioClip;
 
     void Start()
     {
@@ -31,9 +33,8 @@ public class Ship : MonoBehaviour
         limitVerticalMoviment();
 
         if (Input.GetKeyDown("space"))
-        {
-            this.instantiateShot();
-        }
+            instantiateShot();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,9 +43,13 @@ public class Ship : MonoBehaviour
         {
             quantityLifes--;
             updateTextLifes();
+            AudioSource.PlayClipAtPoint(audioClip, transform.position);
 
             if (quantityLifes == 0)
+            {
                 Destroy(this.gameObject);
+                SceneManager.LoadScene("menu", LoadSceneMode.Single);
+            }
         }
     }
 
