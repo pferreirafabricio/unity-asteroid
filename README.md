@@ -7,13 +7,13 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
 </p>
 
-### Overview
+## :eyes: Overview
 
   <img width="512px" src="./docs/menu.png" />
   <img width="512px" src="./docs/phase.png" />
 <br/>
 
-### :scroll: About
+## :scroll: About
 
 It is a simple game inspired by Asteroids, a space-themed multidirectional shooter arcade game, where you control a space and destroy asteroid with your shots.
 <br/>
